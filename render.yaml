@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: hrms-lite-backend
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app.main:app --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:$PORT
+    envVars:
+      - key: MONGODB_URL
+        sync: false
+      - key: DATABASE_NAME
+        value: hrms_lite
+      - key: FRONTEND_URL
+        sync: false
+    autoDeploy: true
